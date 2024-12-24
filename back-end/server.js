@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const cors = require('cors');
-app.use(cors)
+// const cors = require('cors');
+// app.use(cors)
 
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
     password:'1234',
     database: 'coins',
@@ -13,10 +13,18 @@ const db = mysql.createConnection({
 })
 
 
-app.get('/', (req, res)=>{
+app.get('/api/', (req, res)=>{
     db.query('SELECT * FROM categories', (err, result)=>{
+        if(err){
+            console.log(err);
+            return
+        }
         res.send(JSON.stringify(result))
     })
+});
+
+app.get('/api/category/:id', (req, res)=>{
+    const categoryID = req.params
 })
 
 
@@ -25,6 +33,7 @@ app.get('/', (req, res)=>{
 
 
 
-app.listen(81, function(){
+
+app.listen(444, function(){
     console.log('server started successfully...');
 })
