@@ -1,9 +1,11 @@
+import { useParams } from "react-router"
 import Chevron_right from "../../assets/Chevron_right.svg"
 import "./HomePageCoins.css"
 import { useSelector } from "react-redux"
 
 const HomePageCoins = () => {
     const coins = useSelector((state) => state.homecoins.value)
+    const id = useParams()
     console.log(coins)
     return (
         <div className="coins-wrapper">

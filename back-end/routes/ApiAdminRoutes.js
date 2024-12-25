@@ -1,13 +1,10 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const  session = require('express-sessions')
+const  session = require('express-session')
 const bcrypt = require('bcryptjs');
-const checkAdmin = require('../middlewares/CheckAdmin');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// const cors = require('cors');
-// app.use(cors)
 
 const db = mysql.createConnection({
     host: '127.0.0.1',
@@ -19,15 +16,6 @@ const db = mysql.createConnection({
 
 const router = express.Router();
 
-// router.get('/', (req, res)=>{
-//     db.query('SELECT * FROM categories', (err, result)=>{
-//         if(err){
-//             console.log(err);
-//             return
-//         }
-//         res.send(JSON.stringify(result))
-//     })
-// });
 
 router.get('/category/:id', (req, res)=>{
     const categoryID = req.params.id;
@@ -53,7 +41,6 @@ router.get('/product/:id', (req, res)=>{
 router.post('/login', (req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
-    // console.log(username, password)
     db.query(`SELECT user_name, password FROM users WHERE user_name=?`, [username], (err, result)=>{
         if(err){
             console.log('Username or password is incorrect!', err);
@@ -65,22 +52,20 @@ router.post('/login', (req, res)=>{
                 console.log('compare error',err);
                 return;
             }
-            if(isMatch){
-                res.send(JSON.stringify({result:true}));
-                req.session.isAdmin = true; 
-                res.redirect('http://localhost:5173/admin')
-            }else{
-                res.send(JSON.stringify({result:false}))
+            if(!isMatch){
+                res.json({isAuth:false})
+            }else if(isMatch){
+                res.json({isAuth:true, redirectUrl:'http://localhost:5173/admin'})       
             }
         })
     })
 })
 
 router.get('/dashboard', (req, res)=>{
-    db.query('SELECT * FROM categories', (err, result)=>{
+    db.query('SELECT * FROM coins', (err, result)=>{
         if(err){
             console.log(err);
-            return
+            return res.status(500).send('Internal Server Error');
         }
         res.send(JSON.stringify(result))
     })

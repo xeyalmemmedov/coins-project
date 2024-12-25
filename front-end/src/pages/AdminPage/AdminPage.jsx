@@ -4,45 +4,11 @@ import "./AdminPage.css";
 import exclusive_img from "../../assets/Exclusive_coin.png";
 
 const AdminPage = () => {
-    const [coins, setCoins] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate(); // react-router-dom kullanarak yönlendirme
-
-    useEffect(() => {
-        // Admin kontrolü yapalım
-        fetch('http://localhost:3000/admin/api/dashboard', {
-            method: 'GET',
-            credentials: 'same-origin', // Session bilgilerini göndermek için
-        })
-        .then(res => {
-            if (!res.ok) {
-                // Eğer admin değilse, 401 hata kodu dönecek ve burada yönlendirme yapılacak
-                throw new Error("Unauthorized"); // Eğer admin değilse, hata fırlatıyoruz
-            }
-            return res.json(); // Veriyi al
-        })
-        .then(data => {
-            setCoins(data);  // Veriyi UI'de göster
-            setLoading(false); // Yükleme durumunu sonlandır
-        })
-        .catch(err => {
-            // Admin değilse veya başka bir hata varsa yönlendirme yap
-            setError(err.message); // Hata mesajını kaydet
-            setLoading(false); // Yükleme durumu sonlandır
-            // Hata durumunda login sayfasına yönlendir
-            navigate('/login'); // React Router kullanarak yönlendirme
-        });
-    }, [navigate]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>; // Hata mesajını göster
-    }
-
+    const [coins, setCoins] = useState({})
+    useEffect(()=>{
+        fetch('http://localhost:3000/admin/api/dashboard').then(res=>res.json()).then(data=>setCoins(data))
+    },[])
+    console.log(coins)
     return (
         <div className="adminpage-wrapper">
             <span className="admin-panel-header">Admin Panel</span>

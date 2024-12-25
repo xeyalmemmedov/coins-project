@@ -13,8 +13,8 @@ const HomePage = () => {
     const [toggleAdvanced, setToggleAdvanced] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:3000/').then((res) => { return res.json() }).then((data) => dispatch(setHomeCoins(data)))
-    });
+        fetch('http://localhost:3000/api/').then((res) => { return res.json() }).then((data) => dispatch(setHomeCoins(data)))
+    },[]);
 
     return (
         <div className="homepage-wrapper">

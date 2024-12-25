@@ -3,8 +3,7 @@ const app = express();
 const mysql = require('mysql');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// const cors = require('cors');
-// app.use(cors)
+
 
 const db = mysql.createConnection({
     host: '127.0.0.1',
@@ -28,7 +27,7 @@ router.get('/', (req, res)=>{
 
 router.get('/category/:id', (req, res)=>{
     const categoryID = req.params.id;
-    db.query(`SELECT * FROM coins WHERE category_id=${categoryID}`, (err, result)=>{
+    db.query(`SELECT * FROM coins WHERE category_id=?`,[categoryID], (err, result)=>{
         if(err){
             console.log(err)
             return
