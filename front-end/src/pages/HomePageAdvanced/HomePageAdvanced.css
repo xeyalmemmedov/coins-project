@@ -1,0 +1,60 @@
+.homepage-advanced-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.option-part{
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    margin-top: 10px;
+
+    >label{
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 3px;
+        font-weight: 400;
+    }
+
+    >select{
+        height: 50px;
+    }
+
+}
+
+.select option{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.price-issue-details{
+    margin-left: 20px;
+}
+
+.price-wrapper,
+.issue-wrapper{
+
+    >p{
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    >label{
+        font-size: 14px;
+    }
+}
+
+.price-wrapper{
+    margin-top: 20px;
+}
+
+.from-input,
+.to-input{
+    height: 50px;
+    width: 160px;
+}
+
+.issue-wrapper{
+    margin-top: 10px;
+}

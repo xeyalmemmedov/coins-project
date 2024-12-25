@@ -4,6 +4,8 @@ const mysql = require('mysql');
 const  session = require('express-sessions')
 const bcrypt = require('bcryptjs');
 const checkAdmin = require('../middlewares/CheckAdmin');
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 // const cors = require('cors');
 // app.use(cors)
 
@@ -17,15 +19,15 @@ const db = mysql.createConnection({
 
 const router = express.Router();
 
-router.get('/', (req, res)=>{
-    db.query('SELECT * FROM categories', (err, result)=>{
-        if(err){
-            console.log(err);
-            return
-        }
-        res.send(JSON.stringify(result))
-    })
-});
+// router.get('/', (req, res)=>{
+//     db.query('SELECT * FROM categories', (err, result)=>{
+//         if(err){
+//             console.log(err);
+//             return
+//         }
+//         res.send(JSON.stringify(result))
+//     })
+// });
 
 router.get('/category/:id', (req, res)=>{
     const categoryID = req.params.id;
@@ -51,20 +53,22 @@ router.get('/product/:id', (req, res)=>{
 router.post('/login', (req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username, password)
-    db.query(`SELECT username, password FROM USERS WHERE user_name=${username}`, (err, result)=>{
+    // console.log(username, password)
+    db.query(`SELECT user_name, password FROM users WHERE user_name=?`, [username], (err, result)=>{
         if(err){
-            console.log('Username or password is incorrect!');
+            console.log('Username or password is incorrect!', err);
             return
         }
-        bcrypt.compare(password, result.password, (err, isMatch)=>{
+        const storedPassword = result[0].password
+        bcrypt.compare(password, storedPassword, (err, isMatch)=>{
             if(err){
-                console.log(err);
+                console.log('compare error',err);
                 return;
             }
             if(isMatch){
                 res.send(JSON.stringify({result:true}));
                 req.session.isAdmin = true; 
+                res.redirect('http://localhost:5173/admin')
             }else{
                 res.send(JSON.stringify({result:false}))
             }
@@ -72,7 +76,7 @@ router.post('/login', (req, res)=>{
     })
 })
 
-router.get('/dashboard', checkAdmin, (req, res)=>{
+router.get('/dashboard', (req, res)=>{
     db.query('SELECT * FROM categories', (err, result)=>{
         if(err){
             console.log(err);

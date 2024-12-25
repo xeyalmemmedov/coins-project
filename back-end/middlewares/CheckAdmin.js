@@ -1,10 +1,8 @@
 function checkAdmin(req, res, next) {
-    // Admin kullanıcısının oturum bilgilerini kontrol ediyoruz.
     if (!req.session || !req.session.isAdmin) {
-        // Eğer admin girişi yoksa login sayfasına yönlendiriyoruz.
-        return res.send(JSON.stringify({result:false}));  // Giriş yapmamışsa login sayfasına yönlendir
+        return res.status(403).json({ result: false, message: 'Unauthorized' }); // Admin kontrolü yapıyoruz
     }
-    next();  // Eğer admin girişi varsa, işlemi devam ettir
+    next();  // Admin kontrolü geçerse, işlem devam eder
 }
 
 module.exports = checkAdmin;
