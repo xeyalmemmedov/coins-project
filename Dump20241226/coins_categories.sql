@@ -16,43 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `coins`
+-- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `coins`;
+DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `coins` (
-  `coins_id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories` (
+  `category_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `face_value` int DEFAULT NULL,
-  `year` year NOT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `country` varchar(50) DEFAULT NULL,
-  `compisition` varchar(50) DEFAULT NULL,
-  `short_description` varchar(100) DEFAULT NULL,
-  `full_description` text,
-  `quality` varchar(20) DEFAULT NULL,
-  `weight` decimal(10,2) DEFAULT NULL,
-  `img_obverse` text,
-  `img_reverse` text,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `category_id` int DEFAULT NULL,
-  PRIMARY KEY (`coins_id`),
-  KEY `category_id` (`category_id`),
-  CONSTRAINT `coins_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
+  `img_category` text,
+  PRIMARY KEY (`category_id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `coins`
+-- Dumping data for table `categories`
 --
 
-LOCK TABLES `coins` WRITE;
-/*!40000 ALTER TABLE `coins` DISABLE KEYS */;
-INSERT INTO `coins` VALUES (1,'bitcoin',NULL,2012,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2024-12-24 03:24:20','2024-12-24 03:24:20',1),(2,'eth',NULL,2012,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2024-12-24 03:26:33','2024-12-24 03:26:33',3),(3,'litecoin',NULL,2012,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2024-12-24 03:29:16','2024-12-24 03:29:16',1);
-/*!40000 ALTER TABLE `coins` ENABLE KEYS */;
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Bullion coins','2024-12-23 03:27:59','2024-12-24 02:34:48','https://i.hizliresim.com/dad7jmx.png'),(2,'Exclusive coins','2024-12-23 03:29:29','2024-12-26 02:15:48','https://i.hizliresim.com/jnht4fc.png'),(3,'Commemorative coins','2024-12-23 03:30:20','2024-12-26 02:16:15','https://i.hizliresim.com/g1yw9za.png');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -64,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-24  5:30:33
+-- Dump completed on 2024-12-26  5:25:26
