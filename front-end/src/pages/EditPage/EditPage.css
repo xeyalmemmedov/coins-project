@@ -1,0 +1,132 @@
+input{
+    height: 50px;
+    width: 270px;
+}
+
+.admin-panel-coin-add-wrapper{
+    display: flex;
+    padding: 50px;
+    gap: 20px;
+
+    >div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+.admin-panel-coin-add-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-header {
+    grid-column: 1 / -1;
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #000;
+  }
+  
+  /* First column */
+  .admin-panel-coin-add-wrapper > div:nth-child(2) {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Middle column */
+  .admin-panel-coin-add-wrapper > div:nth-child(3) {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Last column */
+  .admin-panel-coin-add-wrapper > div:nth-child(4) {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Input styles */
+  .admin-panel-coin-add-wrapper input[type="text"],
+  .admin-panel-coin-add-wrapper textarea,
+  .admin-panel-coin-add-wrapper select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+  
+  /* Textarea specific styles */
+  .admin-panel-coin-add-wrapper textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  /* Label styles */
+  .admin-panel-coin-add-wrapper label,
+  .add-short-description,
+  .add-long-description {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  /* Select styles */
+  .admin-panel-coin-add-wrapper select {
+    height: 35px;
+    background-color: white;
+  }
+  
+  /* Button container */
+  .admin-panel-coin-add-wrapper > div:last-child > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Button styles */
+  .admin-panel-coin-add-wrapper button {
+    padding: 8px 24px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .admin-panel-coin-add-wrapper button[type="submit"] {
+    background-color: #8A2BE2;
+    color: white;
+  }
+  
+  .admin-panel-coin-add-wrapper button[type="button"] {
+    background-color: #E0E0E0;
+    color: black;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-panel-coin-add-wrapper {
+      grid-template-columns: 1fr;
+    }
+  
+    .admin-panel-coin-add-wrapper > div:nth-child(2),
+    .admin-panel-coin-add-wrapper > div:nth-child(3),
+    .admin-panel-coin-add-wrapper > div:nth-child(4) {
+      grid-column: 1;
+    }
+  
+    .admin-panel-coin-add-wrapper > div:last-child > div:last-child {
+      flex-direction: column;
+    }
+  
+    .admin-panel-coin-add-wrapper button {
+      width: 100%;
+      margin: 5px 0;
+    }
+  }

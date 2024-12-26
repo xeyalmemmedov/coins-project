@@ -8,7 +8,6 @@ const ListOfCoins = () => {
     const coins = useSelector((state)=>state.homecoins.value)
     const id = useParams();
     const dispatch = useDispatch();
-    console.log(id);
     useEffect(() => {
             fetch(`http://localhost:3000/api/category/${id.id}`).then((res) => { return res.json() }).then((data) => dispatch(setHomeCoins(data)))
     },[]);
@@ -18,7 +17,7 @@ const ListOfCoins = () => {
             <div className="coinlist-coins-wrapper">
                 {coins.map((coin)=>{
                     return(
-                        <a href="#">
+                        <a href={`/coin/${coin.coins_id}`}>
                         <div className="coinlist-coin">
                             <img src={coin.img_obverse} />
                             <div className="coinlist-coin-description-wrapper">

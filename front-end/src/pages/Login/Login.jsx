@@ -26,12 +26,14 @@ const Login = () => {
             });
 
             const response = await res.json();
-            dispatch(setUser(response.isAuth));
 
             if (response.isAuth) {
-                navigate('/admin'); // React Router ile yönlendirme
+                navigate('/admin'); 
+                localStorage.setItem("isAuth", true)
+
             } else {
                 alert('Username or password is incorrect!');
+                localStorage.setItem("isAuth", false)
             }
         } catch (error) {
             console.error('Login failed:', error);

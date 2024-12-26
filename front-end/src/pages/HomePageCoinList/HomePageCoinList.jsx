@@ -12,7 +12,7 @@ const HomePageCoinList = () => {
     return (
         <div className="coinlist-wrapper">
             <span className="coinlist-panel-header">List of the coins</span>
-            <a className="homepage-coinlist" href="#"><span className="homepage-underline">Homepage</span> — List of the coins</a>
+            <a className="homepage-coinlist" href="/"><span className="homepage-underline">Homepage</span> — List of the coins</a>
             <div className="coinlist-input-wrapper">
                 <label className="coinlist-input-label" htmlFor="coinlist-search">Input field</label>
                 <div className="coinlist-search-wrapper">

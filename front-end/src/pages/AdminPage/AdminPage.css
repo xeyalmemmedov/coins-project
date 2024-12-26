@@ -31,7 +31,8 @@
     width: 375px;
 }
 
-.admin-search-button{
+.admin-search-button,
+.admin-logout-button{
     background: #833AE0;
     color: #fff;
     margin-left: 2%;
@@ -74,7 +75,7 @@
 }
 
 .admin-coin-short-desc{
-    max-width: 250px;
+    width: 350px;
 }
 
 .admin-btn-wrapper{

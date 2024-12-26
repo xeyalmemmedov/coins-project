@@ -70,6 +70,131 @@ router.get('/dashboard', (req, res)=>{
         res.send(JSON.stringify(result))
     })
 });
+router.post("/add", (req, res) => {
+    const {
+        name,
+        face_value,
+        year,
+        price,
+        country,
+        compisition,
+        short_description,
+        full_description,
+        quality,
+        weight,
+        img_obverse,
+        img_reverse,
+        category_id,
+    } = req.body;
+
+    const query = `INSERT INTO coins 
+      (name, face_value, year, price, country, compisition, short_description, full_description, quality, weight, img_obverse, img_reverse, category_id) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [
+        name,
+        face_value,
+        year,
+        price,
+        country,
+        compisition,
+        short_description,
+        full_description,
+        quality,
+        weight,
+        img_obverse,
+        img_reverse,
+        category_id,
+    ];
+
+    db.query(query, values, (err, result) => {
+        if (err) {
+            console.error("Error inserting data:", err);
+            return res.status(500).json({ error: "Failed to add coin to the database" });
+        }
+
+        res.status(200).json({ message: "Coin added successfully!", result });
+    });
+});
+
+router.delete('/delete/:id', (req, res)=>{
+    const id = req.params.id;
+    db.query(`DELETE FROM coins WHERE coins_id=?`,[id], (err, result)=>{
+        if(err){
+            console.log(err, 'This element cannot deleted')
+            return;
+        }
+        res.json(result)
+    })
+
+})
+router.put("/edit/:id", (req, res) => {
+    const id = +req.params.id;
+    const {
+        name,
+        face_value,
+        year,
+        price,
+        country,
+        compisition,
+        short_description,
+        full_description,
+        quality,
+        weight,
+        img_obverse,
+        img_reverse,
+        category_id,
+    } = req.body;
+
+    const query = `
+        UPDATE coins 
+        SET 
+            name = ?, 
+            face_value = ?, 
+            year = ?, 
+            price = ?, 
+            country = ?, 
+            compisition = ?, 
+            short_description = ?, 
+            full_description = ?, 
+            quality = ?, 
+            weight = ?, 
+            img_obverse = ?, 
+            img_reverse = ?, 
+            category_id = ?
+        WHERE coins_id = ?
+    `;
+
+    const values = [
+        name,
+        face_value,
+        year,
+        price,
+        country,
+        compisition,
+        short_description,
+        full_description,
+        quality,
+        weight,
+        img_obverse,
+        img_reverse,
+        category_id,
+        id,
+    ];
+
+    db.query(query, values, (err, result) => {
+        if (err) {
+            console.error("Error updating data:", err);
+            return res.status(500).json({ error: "Failed to update coin in the database" });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Coin not found" });
+        }
+
+        res.status(200).json({ message: "Coin updated successfully!", result });
+    });
+});
+
 
 
 

@@ -3,10 +3,7 @@ import { Outlet, Navigate } from "react-router";
 
 
 const ProtectedRoute = ()=>{
-    
-    const user = useSelector((state)=>state.userslice.value)
-    // const  user = true
-    // console.log(user)
+    const user = localStorage.getItem("isAuth")
     return (
         user ? <Outlet /> : <Navigate to="/login"/>
     )

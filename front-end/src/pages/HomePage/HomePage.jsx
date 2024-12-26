@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import HomePageCoins from "../HomePageCoins/HomePageCoins";
 import './HomePage.css';
 import HomePageAdvanced from "../HomePageAdvanced/HomePageAdvanced";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setHomeCoins } from "../../app/HomePageSlicer/HomePageSlice";
 import '../ListOfCoins/ListOfCoins.css'
 const HomePage = () => {
     const dispatch = useDispatch();
     const [toggleAdvanced, setToggleAdvanced] = useState(false);
-    let [isSearch, setSearch] = useState(false);
+    const homecoins = useSelector((state)=> state.homecoins.value)
     const [searchValue, setValue] = useState('');
     const [searchRes, setSearchRes] = useState([])
     useEffect(() => {
@@ -21,12 +21,13 @@ const HomePage = () => {
         const {name, value} = e.target
         setValue(value);
     }
-    const handleSubmit=async (e)=>{
+    const handleSubmit= (e)=>{
         e.preventDefault()
-        setSearch(true);
-        let res = fetch(`http://localhost:3000/api/search/${searchValue}`).then(res=>res.json()).then(res=>{return res.result});
-        let response = await res;
-        setSearchRes(response)
+        const filteredCoins = homecoins.filter(coin => 
+            coin.name.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        dispatch(setHomeCoins(filteredCoins))
+        
     }
     const handleAdvance = () => {setToggleAdvanced(!toggleAdvanced), isSearch=false}
     return (
@@ -60,36 +61,11 @@ const HomePage = () => {
                             )}
                         </a>
                     </div>
-            {isSearch ? (
-                <div className="coinlist-coins-wrapper">
-                {searchRes.map((coin)=>{
-                    return(
-                        <a href={`/coin/${coin.coins_id}`}>
-                        <div className="coinlist-coin">
-                            <img src={coin.img_obverse} />
-                            <div className="coinlist-coin-description-wrapper">
-                                <p className="coinlist-desc-header">
-                                    {coin.name}
-                                </p>
-                                <p className="coinlist-short-description">
-                                    {coin.short_description}
-                                </p>
-                            </div>
-                        </div></a>
-                    )
-                    
 
-                })}
-                
-            </div>
-            ) : (
-                <>
-                    
                     {toggleAdvanced ? <HomePageAdvanced /> : <HomePageCoins />}
-                </>
-            )}
         </div>
     );
 }  
 
 export default HomePage;
+

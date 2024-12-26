@@ -2,11 +2,13 @@ import { useParams } from "react-router"
 import Chevron_right from "../../assets/Chevron_right.svg"
 import "./HomePageCoins.css"
 import { useSelector } from "react-redux"
+import { useState } from "react"
 
 const HomePageCoins = () => {
-    const coins = useSelector((state) => state.homecoins.value)
     const id = useParams()
-    // console.log(coins)
+    const coins = useSelector((state) => state.homecoins.value)
+    const [data, setData] = useState(coins)
+
     return (
         <div className="coins-wrapper">
             {coins.map((coin) => {
