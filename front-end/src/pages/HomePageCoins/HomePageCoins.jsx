@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 const HomePageCoins = () => {
     const coins = useSelector((state) => state.homecoins.value)
     const id = useParams()
-    console.log(coins)
+    // console.log(coins)
     return (
         <div className="coins-wrapper">
             {coins.map((coin) => {
